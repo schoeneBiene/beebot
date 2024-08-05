@@ -26,24 +26,26 @@ public class CommandManager {
         this.jda = jda;
     }
 
-    /*
-     * Adds a command
+    /**
+     * Adds a slash command to the CommandManager
+     * @param command The {@link me.goodbee.beebot.interfaces.Command} to add
      */
     public void registerCommand(Command command) {
         logger.info("Registering command: " + command.getCommandData().getName());
         commands.put(command.getCommandData().getName(), command);
     }
 
-    /*
-     *  Adds a context command
+    /**
+     * Adds a context command to the CommandManager
+     * @param command The {@link me.goodbee.beebot.interfaces.ContextCommand} to add
      */
     public void registerCommand(ContextCommand command) {
         logger.info("Registering context command: " + command.getCommandData().getName());
         contextCommands.put(command.getCommandData().getName(), command);
     }
 
-    /*
-     * Registers all commands to Discord
+    /**
+     * Registers all added commands
      */
     public void pushCommands() {
         ArrayList<CommandData> data = new ArrayList<>();
@@ -59,6 +61,10 @@ public class CommandManager {
         jda.updateCommands().addCommands(data).queue();
     }
 
+    /**
+     * Executes a command
+     * @param event The event of the slash command
+     */
     public void executeCommand(SlashCommandInteractionEvent event) {
         try {
         commands.get(event.getName()).execute(event);
@@ -73,6 +79,10 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Executes a command
+     * @param event The event of the slash command
+     */
     public void executeCommand(MessageContextInteractionEvent event) {
         try {
             contextCommands.get(event.getName()).execute(event);

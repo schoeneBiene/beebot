@@ -7,6 +7,7 @@ import me.goodbee.beebot.commands.context.SummarizeContext;
 import me.goodbee.beebot.listeners.ContextMenuInteractionListener;
 import me.goodbee.beebot.listeners.ReadyListener;
 import me.goodbee.beebot.listeners.SlashCommandInteractionListener;
+import me.goodbee.beebot.util.GitInfo;
 import me.goodbee.beebot.util.Secrets;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -19,6 +20,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         String token = Secrets.DISCORD_TOKEN;
         Logger logger = LoggerFactory.getLogger("Main");
+
+        GitInfo.init();
 
         JDABuilder builder = JDABuilder.createDefault(token);
 
@@ -42,6 +45,7 @@ public class Main {
         new WolframAlphaCommand(commandManager);
         new AIArtCommand(commandManager);
         new ErrorCommand(commandManager);
+        new InfoCommand(commandManager);
 
         new HelloContext(commandManager);
         new SummarizeContext(commandManager);
